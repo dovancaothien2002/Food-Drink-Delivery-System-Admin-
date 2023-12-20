@@ -1,0 +1,192 @@
+<div class="wrapper">
+    <app-header />
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>{{title}}</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="">Home</a></li>
+                            <li class="breadcrumb-item active">{{title}}</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+
+            <!-- Default box -->
+            <div class="card">
+
+                <div class="card-body">
+                    <div id="summernote"></div>
+
+                    <form action="" method="POST" [formGroup]="productFormCreate" (submit)="onSubmit()">
+
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <div class="col-6 ">
+                                    <div class="col-12 row">
+                                        <label for="inputEmail3" class="col-sm-3 col-form-label">Product Name</label>
+                                        <div class="col-sm-9">
+                                            <input class="form-control" formControlName="name" placeholder="Product Name">
+                                            <div *ngIf="productFormCreate['controls']['name'].dirty && productFormCreate['controls']['name'].errors"
+                                                style="color: red;">
+                                                <span *ngIf="productFormCreate['controls']['name'].errors['required']">Product
+                                                    name
+                                                    cannot be empty </span>
+                                                <span *ngIf="productFormCreate['controls']['name'].errors['minlength']">Product
+                                                    name
+                                                    is at least 6 characters <br></span>
+                                            </div>
+                                            <span *ngIf="isDuplicate" style="color: red;">Name already exists!</span> 
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 ">
+                                    <div class="col-12 row">
+                                        <label for="inputEmail3" class="col-sm-3 col-form-label">Category</label>
+                                        <select formControlName="category_id" class="form-control col-sm-9" id="input"
+                                            required="required">
+                                            <option value="" [selected]="">Select</option>
+                                            <option *ngFor="let cat of result" value="{{cat.id}}">
+                                                {{cat.name}}
+                                            </option>
+        
+                                        </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            <div class="form-group row">
+                                <div class="col-6 ">
+                                    <div class="col-12 row">
+                                        <label for="inputEmail3" class="col-sm-3 col-form-label">Price</label>
+                                        <div class="col-sm-9">
+                                            <input class="form-control" formControlName="price" placeholder="Price">
+                                            <div *ngIf="productFormCreate['controls']['price'].dirty && productFormCreate['controls']['price'].errors"
+                                                style="color: red;">
+                                                <span *ngIf="productFormCreate['controls']['price'].errors['required']">Price
+                                                    cannot be empty </span>
+                                                <span *ngIf="productFormCreate['controls']['price'].errors['pattern']">Price
+                                                    is number</span>
+                                            </div>
+        
+                                        </div>
+                                    </div>
+                                    <div class="col-12 row mt-3">
+                                        <label for="inputEmail3" class="col-sm-3 col-form-label">Sale Price</label>
+                                        <div class="col-sm-9">
+                                            <input class="form-control" formControlName="sale_price" placeholder="Sale Price"
+                                                value="0">
+                                            <div *ngIf="productFormCreate['controls']['sale_price'].dirty && productFormCreate['controls']['sale_price'].errors"
+                                                style="color: red;">
+        
+                                                <span *ngIf="productFormCreate['controls']['sale_price'].errors['pattern']">Sale
+                                                    Price
+                                                    is number</span>
+                                            </div>
+        
+                                        </div>
+                                    </div>
+                                   
+                               
+                                    
+                                </div>
+                                <div class="col-6">
+                                    <div class="col-12 row">
+                                        <label for="inputEmail3" class="col-sm-3 col-form-label">Description</label>
+                                        <div class="col-sm-9 p-0">
+                                            <textarea class="form-control" id="description"  rows="3" formControlName="description">
+                                        </textarea>
+        
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="form-group row">
+                               
+                            </div>
+                            <div class="form-group row">
+                               
+                            </div> -->
+                            <!-- <div class="form-group row">
+                                
+                            </div> -->
+                            <div class="form-group row">
+                                <div class="col-6">
+                                    <div class="col-12 row">
+                                        <label for="inputEmail3" class="col-sm-3 col-form-label">Status</label>
+                                        <div class="col-sm-9" style="display: flex; align-items: center;">
+                                            <select name="" id="input" class="form-control" formControlName="status">
+                                                <option value="" [selected]="">Select</option>
+                                                <option value="1">Working</option>
+                                                <option value="0">Not working</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 row mt-3">
+                                        <label for="file" class="col-sm-3 col-form-label">File</label>
+                                        <div class="col-sm-9">
+                                            <input type="file" class="form-control" (change)="uploadFile($event)"
+                                                enctype="multipart/form-data" formControlName="imageUpload">
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-6" *ngIf="preview != null">
+                                    <img [src]="preview" class="w-20" width="300" height="200"/>
+                                </div>
+                                <div class="col-6" *ngIf="preview == null">
+                                    <img src="https://cusc.vn/admin/app/uploads/2023/04/No_Image_Available.jpg" class="w-20" width="200" height="200"/>
+                                </div>
+                            
+                            </div>
+                            <div class="form-group row">
+                               
+                                
+                                <!-- <input 
+                                name="myfile"
+                                id="file" 
+                                type="file" 
+                                class="form-control"
+                                (change)="onFileChange($event)">
+                            <div *ngIf="f['image'].touched && f['image'].invalid" class="alert alert-danger">
+                                <div *ngIf="f['image'].errors && f['image'].errors['required']">File is required.</div>
+                            </div> -->
+                            </div>
+
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer " style="display: flex;justify-content: center;">
+                            <button type="submit" class="btn btn-info" [disabled]="productFormCreate.invalid"><i
+                                    class="fas fa-save"></i> Save</button>
+                            <button type="reset" class="btn btn-danger ml-4"><i class="fas fa-redo"></i>
+                                Refresh</button>
+                        </div>
+                        <!-- /.card-footer -->
+                    </form>
+
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer" style="display: flex;justify-content: center;background-color: white!important;">
+                    <a href="/product" class="btn btn-warning"><i class="fas fa-arrow-left"></i>Back</a>
+
+                </div>
+                <!-- /.card-footer-->
+            </div>
+            <!-- /.card -->
+
+        </section>
+        <!-- /.content -->
+    </div>
+    <app-aside />
+    <app-footer />
+</div>

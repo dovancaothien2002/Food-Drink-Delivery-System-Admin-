@@ -1,0 +1,161 @@
+<style>
+    .active{
+        box-shadow: none!important;
+    }
+    
+</style>
+
+<div class="wrapper">
+    <app-header />
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+                <h1>{{title}}</h1>
+              </div>
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                  <li class="breadcrumb-item"><a href="">Home</a></li>
+                  <li class="breadcrumb-item active">{{title}}</li>
+                </ol>
+              </div>
+            </div>
+          </div><!-- /.container-fluid -->
+        </section>
+      
+        <!-- Main content -->
+        <section class="content">
+      
+          <!-- Default box -->
+          <div class="card">
+            <div class="card-header">
+              
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>  
+            <div class="card-body ">
+              <div class="col-12 pt-3 row" style="margin: auto;">
+                <div class="order col-6" >
+                  <h3 style="text-align: center;font-weight: bold!important;">Order Information</h3>
+                  <hr style="width: 40%;
+                  margin-top: -15px;">
+                  <p><span style="font-weight: bold;">Orderer : </span>{{order.user_name}}</p>
+                  <p><span style="font-weight: bold;">Phone : </span>{{order.user_phone}}</p>
+                  <p><span style="font-weight: bold;">Email : </span>{{order.user_email}}</p>
+                  <p><span style="font-weight: bold;">Delivery address : </span>{{order.address}}</p>
+                  <p><span style="font-weight: bold;">Note : </span>{{order.note}}</p>
+                  <p><span style="font-weight: bold;">Detail address : </span>{{order.detailaddress}}</p>
+                  <p><span style="font-weight: bold;">Store : </span>{{order.store_name}}</p>
+                  <p><span style="font-weight: bold;">Order date : </span>{{order.orderDate|date:'dd/MM/yyyy hh:mm:ss'}}</p>
+                  
+                </div>
+                <div class="listOrderDetail col-6" >
+                    <table class="table table-bordered table-hover" >
+                        <thead>
+                          <tr>
+                            <th>Id</th>
+                            <th>Product Name</th>
+                            <th>Image</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>TotalPrice</th>
+                          </tr>
+                        </thead>
+                        <tbody >
+                          <tr *ngFor="let pro of listOrderDetail">
+                            
+                            <td>
+                              {{pro.id}}
+                            </td>
+                            <td>
+                              {{pro.prod_name}}
+              
+                            </td>
+                            <td><img src="http://localhost:3333/uploads/{{pro.prod_image}}" width="80" alt=""></td>
+              
+                            <td>
+                              {{pro.price}}
+                            </td>
+                            <td>
+                              {{pro.quantity}}
+                            </td>
+                            <td>
+                                {{pro.quantity * pro.price}}
+                            </td>
+                            <!-- <a href="/order/details/<?= pro.id?>" class="btn btn-primary">Chi tiết</a> -->
+                          
+                          </tr>
+              
+                        </tbody>
+                    </table>
+                    
+                </div>
+                <div class="col-12 row p-0" style="margin: auto;">
+                  <hr style="width:90%;margin-top: 15px;">
+                  <div class="col-3"> 
+                    <p><span style="font-weight: bold;">TotalPrice : </span>{{totalPrice}}</p>
+                    <p><span style="font-weight: bold;">Shipping fee : </span>{{order.totalPrice - totalPrice}}</p>
+                  </div>
+                  <div class="col-5 pt-2"> 
+                    <p style="color: red;font-weight: bold;font-size: 22px;"><span style="font-size: 14px!important;color: black!important;">TotalBill : &nbsp;</span>{{order.totalPrice}}</p>
+                  </div>
+                  <div class="col-1 p-0 pt-2"> 
+                    <p style="font-weight: bold;text-align: right;">Status : &nbsp; </p>
+                  </div>
+                  <div class="col-3" *ngIf="order.status == 0"> 
+                      <select  id="input" class="form-control" (change)="onChangeStatusOrder($event)">
+                        <option value="0">Select</option>
+                        <option value="1" style="color: #c6c700;font-weight: bold;">Preprea Dish</option>
+                        <option value="4" style="color: red;font-weight: bold;">Cancel</option>
+                      </select>
+                  </div>
+                  <div class="col-3"  *ngIf="order.status == 1"> 
+                    <select  id="input" class="form-control" (change)="onChangeStatusOrder($event)">
+                      <option value="0">Select</option>
+                      <option value="2" style="color: #ff8e00;font-weight: bold;">Are delivery</option>
+                    </select>
+                </div>
+                  <div class="col-3"  *ngIf="order.status == 2" (change)="onChangeStatusOrder($event)"> 
+                    <select  id="input" class="form-control">
+                      <option value="0">Select</option>
+                      <option value="3" style="color: green;font-weight: bold;">Order Success</option>
+                    </select>
+                 </div>
+                 <div class="col-3 p-0"  *ngIf="order.status == 3"> 
+                    <p style="color: green;font-weight: bold;font-size: 22px;
+                    padding-top: 7px;">Ordered Success</p>
+                  </div>
+                  <div class="col-3 p-0"  *ngIf="order.status == 4"> 
+                    <p style="color: red;font-weight: bold;font-size: 22px;
+                    padding-top: 7px;">Order Canceled</p>
+                  </div>
+                  <div class="col-12"  *ngIf="order.status < 3 "> 
+                      <button class="btn btn-primary" style="float: right;" (click)="onUpdateStatus()" >Update</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+      
+            </div>
+            <!-- /.card-footer-->
+          </div>
+          <!-- /.card -->
+      
+        </section>
+        <!-- /.content -->
+      </div>
+      <!-- /.content-wrapper -->
+    <app-aside />
+    <app-footer />
+  </div>
+    

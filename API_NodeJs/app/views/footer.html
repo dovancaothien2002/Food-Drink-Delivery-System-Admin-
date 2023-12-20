@@ -1,0 +1,41 @@
+<footer class="main-footer">
+  <div class="float-right d-none d-sm-block">
+    <b>Version</b> 3.1.0
+  </div>
+  <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+</footer>
+
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+  <!-- Control sidebar content goes here -->
+</aside>
+<!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="http://localhost:3333/assest/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="http://localhost:3333/assest/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="http://localhost:3333/assest/dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="http://localhost:3333/assest/dist/js/demo.js"></script>
+<script src="http://localhost:3333/assest/plugins/summernote/summernote.min.js"></script>
+<script>
+  $('#description').summernote({ height: 250 });
+  function showImage(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        $('#imgShow').attr('src', e.target.result);
+      };
+
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+</script>
+</body>
+
+</html>

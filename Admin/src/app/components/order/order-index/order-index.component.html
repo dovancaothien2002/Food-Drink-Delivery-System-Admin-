@@ -1,0 +1,158 @@
+<style>
+    
+    .zero{
+      color: lightblue!important;
+        
+    }
+    .one{
+      color: #c6c700!important;
+    }
+    .two{
+      color: #ff8e00!important;
+    }
+    .three{
+        color: green!important;
+        
+    }
+      .four{
+      color: red!important;
+    }
+    .nav-link{
+        font-weight:bold!important; 
+    }
+    .mat-mdc-table {
+      box-shadow:1px -2px 11px 0px #b8b8b8;
+    }
+   
+    .mat-mdc-paginator-outer-container {
+      box-shadow: 0px 6px 9px #adacac;
+    }
+    .active{
+        border:none;
+        box-shadow: 3px -2px 8px #b3b1b1b1;
+    }
+   
+    
+</style>
+
+
+<div class="wrapper">
+    <app-header />
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1>{{title}}</h1>
+            </div>
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="">Home</a></li>
+                <li class="breadcrumb-item" style="color: #6c757d;">{{title}}</li>
+              </ol>
+            </div>
+          </div>
+        </div><!-- /.container-fluid -->
+      </section>
+  
+      <!-- Main content -->
+      <section class="content">
+  
+        <!-- Default box -->
+        <div class="card">
+          <div class="card-header">
+           
+          </div>
+          <div class="card-body">
+            <mat-form-field>
+              <mat-label>Filter</mat-label>
+              <input matInput placeholder="Search " (keyup)="Filterchange($event)">
+                
+          </mat-form-field>
+          <div class="mat-elevation-z8">
+                <ul class="nav nav-tabs" >
+                    <li class="nav-item">
+                        <a class="nav-link zero active" id="zero" style="color: blue!important;" data-toggle="tab" href="#home" onclick="changeBg(0)" (click)="onChangeStatus(0)">Unconfimred</a>
+                    </li>
+                    <li class="nav-item" >
+                        <a class="nav-link one" id="one" data-toggle="tab" href="#menu1" onclick="changeBg(1)" (click)="onChangeStatus(1)">Prepare dish</a>	
+                    </li>
+                    <li class="nav-item" >
+                      <a class="nav-link two" id="two" data-toggle="tab" href="#menu1" onclick="changeBg(2)" (click)="onChangeStatus(2)">Are delivery</a>	
+                  </li>
+                    <li class="nav-item" >
+                        <a class="nav-link three" id="three" data-toggle="tab" href="#menu2" onclick="changeBg(3)" (click)="onChangeStatus(3)">Ordered success</a>	
+                    </li>
+                    <li class="nav-item" >
+                        <a class="nav-link four" id="four" data-toggle="tab" href="#menu3" onclick="changeBg(4)" (click)="onChangeStatus(4)">Canceled Order</a>	
+                    </li>
+		      </ul>
+  
+              <table mat-table matSort [dataSource]="dataSource">
+  
+                  <!--- Note that these columns can be defined in any order.
+                    The actual rendered columns are set as a property on the row definition" -->
+  
+                  <!-- Position Column -->
+                  <ng-container matColumnDef="id">
+                      <th mat-header-cell mat-sort-header *matHeaderCellDef> Id </th>
+                      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="user_name">
+                    <th mat-sort-header mat-header-cell *matHeaderCellDef> user_name </th>
+                    <td mat-cell *matCellDef="let element"> {{element.user_name}} </td>
+                </ng-container>
+                <ng-container matColumnDef="user_phone">
+                  <th mat-sort-header mat-header-cell *matHeaderCellDef> user_phone </th>
+                  <td mat-cell *matCellDef="let element"> {{element.user_phone}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="user_email">
+                  <th mat-sort-header mat-header-cell *matHeaderCellDef> user_email </th>
+                  <td mat-cell *matCellDef="let element"> {{element.user_email}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="address">
+                    <th mat-sort-header mat-header-cell *matHeaderCellDef>address </th>
+                    <td mat-cell *matCellDef="let element"> {{element.address }} </td>
+                  </ng-container>
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="store_name">
+                        <th mat-sort-header mat-header-cell *matHeaderCellDef> store_name </th>
+                        <td mat-cell *matCellDef="let element"> {{element.store_name}} </td>
+                    </ng-container>
+                  <ng-container matColumnDef="orderDate">
+                      <th mat-header-cell *matHeaderCellDef>orderDate </th>
+                      <td mat-cell *matCellDef="let element"> {{element.orderDate | date : 'dd/MM/yyyy hh:mm:ss' }} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="action">
+                      <th mat-header-cell *matHeaderCellDef> Action </th>
+                      <td mat-cell *matCellDef="let element"> <a href="/order/detail/{{element.id}}"
+                              class="btn btn-primary mr-4"><i class="fas fa-edit"></i></a>
+  
+                      </td>
+                  </ng-container>
+  
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr (click)="getrow(row)" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+  
+              <mat-paginator [pageSizeOptions]="[5,50,100]" showFirstLastButtons>
+  
+              </mat-paginator>
+  
+          </div>
+      </div>
+  
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+  
+      </section>
+      <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <app-aside />
+    <app-footer />
+  </div>
+    

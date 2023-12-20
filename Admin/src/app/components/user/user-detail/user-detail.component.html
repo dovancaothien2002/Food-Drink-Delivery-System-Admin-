@@ -1,0 +1,55 @@
+<div class="wrapper">
+    <app-header />
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>{{title}}</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="">Home</a></li>
+                            <li class="breadcrumb-item active">{{title}}</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <!-- Default box -->
+            <div class="card">
+
+                <div class="card-body">
+                        <div class="card-body">   
+                           <div class="row">
+                                <div class="col-12">
+                                    <h2>{{name}}</h2>
+                                    
+                                    <p style="font-size:16px;"><span style="font-weight: bold;">Email : </span> {{email}}</p>
+                                    <p style="font-size:16px;"><span style="font-weight: bold;">Phone : </span> {{phone}}</p>
+                                    <p style="font-size:16px;"><span style="font-weight: bold;">Created At : </span>{{createdate | date:'dd/MM/yyyy hh:mm:ss '}}</p>
+                                    <p style="font-size:16px;"><span style="font-weight: bold;">Updated At : </span>{{updatedate | date:'dd/MM/yyyy hh:mm:ss '}}</p>
+                                </div>
+                           </div>
+                        </div>
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer" style="display: flex;justify-content: center;">
+                    <a href="/user" class="btn btn-warning"><i class="fas fa-arrow-left"></i>Back</a>
+
+                </div>
+                <!-- /.card-footer-->
+            </div>
+            <!-- /.card -->
+
+        </section>
+        <!-- /.content -->
+    </div>
+    <app-aside />
+    <app-footer />
+</div>

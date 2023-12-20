@@ -1,0 +1,105 @@
+<div class="wrapper">
+    <app-header />
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>{{title}}</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="">Home</a></li>
+                            <li class="breadcrumb-item active">{{title}}</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+
+            <!-- Default box -->
+            <div class="card">
+
+                <div class="card-body">
+
+                    <form action="" method="POST" [formGroup]="form" (submit)="addForm()">
+
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label">Store Name</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" formControlName="name"  [(ngModel)]="result.name" placeholder="Store Name">
+                                    <div *ngIf="form['controls']['name'].dirty && form['controls']['name'].errors"
+                                        style="color: red;">
+                                        <span *ngIf="form['controls']['name'].errors['required']">Store
+                                            name
+                                            cannot be empty </span>
+                                        <span *ngIf="form['controls']['name'].errors['minlength']">Store
+                                            name
+                                            is at least 6 characters <br></span>
+                                        <span *ngIf="form['controls']['name'].errors['pattern']">Store
+                                            name
+                                            is alphabet</span>
+                                    </div>
+                                    <span *ngIf="isDuplicate" style="color: red;">Name already exists!</span> 
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label">Store Address</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" formControlName="fulladdress"  [(ngModel)]="result.fulladdress" placeholder="Store Address">
+                                    <div *ngIf="form['controls']['fulladdress'].dirty && form['controls']['fulladdress'].errors"
+                                        style="color: red;">
+                                        <span *ngIf="form['controls']['fulladdress'].errors['required']">Store
+                                            name
+                                            cannot be empty </span>
+                                    </div>
+                                 
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label">Store Introduce</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" formControlName="introduce" [(ngModel)]="result.introduce" placeholder="Store Introduce">
+                                    <div *ngIf="form['controls']['introduce'].dirty && form['controls']['introduce'].errors"
+                                        style="color: red;">
+                                        <span *ngIf="form['controls']['introduce'].errors['required']">Store
+                                            Introduce
+                                            cannot be empty </span>
+                                    </div>
+                                 
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer " style="display: flex;justify-content: center;">
+                            <button type="submit" class="btn btn-info" [disabled]="form.invalid"><i
+                                    class="fas fa-save"></i> Save</button>
+                            <button type="reset" class="btn btn-danger ml-4"><i class="fas fa-redo"></i>
+                                Refresh</button>
+                        </div>
+                        <!-- /.card-footer -->
+                    </form>
+
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer" style="display: flex;justify-content: center;">
+                    <a href="/category" class="btn btn-warning"><i class="fas fa-arrow-left"></i>Back</a>
+
+                </div>
+                <!-- /.card-footer-->
+            </div>
+            <!-- /.card -->
+
+        </section>
+        <!-- /.content -->
+    </div>
+    <app-aside />
+    <app-footer />
+</div>

@@ -1,0 +1,108 @@
+<div class="wrapper">
+    <app-header />
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>{{title}}</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="">Home</a></li>
+                            <li class="breadcrumb-item active">{{title}}</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+
+            <!-- Default box -->
+            <div class="card">
+
+                <div class="card-body">
+
+                    <form action="" method="POST" [formGroup]="form" (submit)="addForm()">
+                        <input type="hidden" class="form-control" formControlName="id">
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <div class="col-6 row">
+                                    <label for="inputEmail3" class="col-sm-3 col-form-label">Category Name</label>
+                                    <div class="col-sm-9">
+                                        <input class="form-control" [(ngModel)]="result.name" formControlName="name"
+                                            placeholder="Category Name">
+                                        <div *ngIf="form['controls']['name'].dirty && form['controls']['name'].errors"
+                                            style="color: red;">
+                                            <span *ngIf="form['controls']['name'].errors['required']">Category name
+                                                cannot be empty </span>
+                                            <span *ngIf="form['controls']['name'].errors['minlength']">Category name
+                                                is at least 6 characters</span>
+                                        </div>
+                                        <span *ngIf="isDuplicate" style="color: red;">Name already exists!</span> 
+    
+                                    </div>
+                                    <label for="inputEmail3" class="col-sm-3 col-form-label">Status</label>
+                                    <div class="col-sm-9">
+                                        <select name="" id="input" [(ngModel)]="result.status" class="form-control" formControlName="status">
+                                            <option value="">Select</option>
+                                            <option value="1">Working</option>
+                                            <option value="0">Not working</option>
+                                        </select>
+                                    </div>
+                                    <label for="file" class="col-sm-3 col-form-label">File</label>
+                                    <div class="col-sm-9">
+                                        <input type="hidden" [(ngModel)]="result.image" formControlName="image">
+    
+                                        <input type="file" class="form-control" (change)="uploadFile($event)"
+                                            enctype="multipart/form-data" formControlName="imageUpload">
+                                        
+                                    </div>
+                                </div> 
+                                <div class="col-6 pl-5">
+                                    <img [src]="preview" class="w-20" width="200" height="200"/>
+                                </div> 
+                            </div>
+                                
+                            
+                            <div class="form-group row">
+                                
+                            </div>
+                            <div class="form-group row">
+                               
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+
+                        <div class="card-footer " style="display: flex;justify-content: center;">
+                            <button type="submit" class="btn btn-info" [disabled]="form.invalid"><i
+                                    class="fas fa-save"></i>
+                                Save</button>
+                            <button type="reset" class="btn btn-danger ml-4"><i class="fas fa-redo"></i>
+                                Refresh</button>
+                        </div>
+                        <!-- /.card-footer -->
+                    </form>
+
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                    <div class="card-footer" style="display: flex;justify-content: center;">
+                        <a href="/category" class="btn btn-warning"><i class="fas fa-arrow-left"></i>Back</a>
+
+                    </div>
+                </div>
+                <!-- /.card-footer-->
+            </div>
+            <!-- /.card -->
+
+        </section>
+        <!-- /.content -->
+    </div>
+    <app-aside />
+    <app-footer />
+</div>
