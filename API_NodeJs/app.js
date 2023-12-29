@@ -5,9 +5,9 @@ var bodyparser = require('body-parser');
 const app = express();
 const ejs = require('ejs');
 ejs.delimiter = '?';
-app.set('view engine', 'html');
-app.engine('html', ejs.__express);
-app.set('views', './app/views');
+//app.set('view engine', 'html');
+//app.engine('html', ejs.__express);
+//app.set('views', './app/views');
 app.use(express.static('public'));
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
@@ -24,8 +24,6 @@ app.use(function (req, res, next) {
     next();
   });
 app.use(function (req, res, next) {
-    require('./app/router/category.router')(app);
-    require('./app/router/product.router')(app);
     require('./app/router/category.api.router')(app);
     require('./app/router/product.api.router')(app);
     require('./app/router/account.api.router')(app);

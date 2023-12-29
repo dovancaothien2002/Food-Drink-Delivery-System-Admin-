@@ -6,7 +6,7 @@ const url_link = 'http://192.168.31.88:3333/uploads/';
 
 module.exports = function (app) {
     // Cấu hình upload image //
-    var path = require('path')
+    let path = require('path')
     const storage = multer.diskStorage({
         destination: (req, file, callback) => {
             callback(null, './public/uploads');
